@@ -2,6 +2,9 @@ package EasyGym;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import EasyGym.UsuarioManager;
+
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

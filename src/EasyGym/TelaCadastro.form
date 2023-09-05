@@ -106,23 +106,29 @@
   <SubComponents>
     <Component class="javax.swing.JTextField" name="txtUser">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="No m&#xed;nimo 8 letras"/>
+        <Property name="toolTipText" type="java.lang.String" value="No m&#xed;nimo 8 letras no m&#xe1;ximo 12"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="User Name"/>
           </Border>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtUserKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtPass">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="No m&#xed;nimo 8 letras"/>
+        <Property name="toolTipText" type="java.lang.String" value="No m&#xed;nimo 8 letras, m&#xe1;ximo 20"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Senha"/>
           </Border>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPassKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>

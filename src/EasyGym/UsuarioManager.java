@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package EasyGym;
-
-/**
- *
- * @author Marcus
- */
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,11 +17,14 @@ public class UsuarioManager {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            carregarUsuarios(); // Carregue os usuários do arquivo, se o arquivo existir
         }
     }
 
     public void adicionarUsuario(Usuario usuario) {
         usuarios.add(usuario);
+        salvarUsuarios(); // Após adicionar um novo usuário, salve a lista atualizada no arquivo
     }
 
     public List<Usuario> getUsuarios() {
@@ -53,8 +47,12 @@ public class UsuarioManager {
         }
     }
 
-    Usuario buscarUsuario(String username) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Usuario buscarUsuario(String username) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getUsername().equals(username)) {
+                return usuario; // Retorna o usuário se encontrado
+            }
+        }
+        return null; // Retorna null se o usuário não for encontrado
     }
-
 }
