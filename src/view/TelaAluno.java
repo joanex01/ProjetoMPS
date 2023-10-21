@@ -4,7 +4,12 @@
  */
 package view;
 
+import business.model.Exercicio;
 import business.model.Usuario;
+import infra.InfraException;
+import infra.ListaExercicioAdapter;
+
+import java.util.List;
 
 /**
  *
@@ -12,11 +17,16 @@ import business.model.Usuario;
  */
 public class TelaAluno extends javax.swing.JPanel {
 
-    /**
-     * Creates new form TelaAluno
-     */
+     List<Exercicio> exercicios;
 
-    public TelaAluno(Usuario aluno) {
+    public TelaAluno(Usuario aluno) throws InfraException {
+        ListaExercicioAdapter adapter = new ListaExercicioAdapter();
+        try {
+            exercicios = adapter.obterListaExercicio();
+        } catch (InfraException e) {
+            throw new RuntimeException(e);
+        }
+
         initComponents(aluno.getNomeCompleto());
     }
 

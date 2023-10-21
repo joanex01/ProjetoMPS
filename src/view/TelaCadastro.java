@@ -2,6 +2,7 @@ package view;
 
 import business.control.UsuarioManager;
 import business.model.Usuario;
+import factory.UserFactoryImpl;
 import infra.InfraException;
 import util.LoginInvalidException;
 import util.PasswordInvalidException;
@@ -18,7 +19,7 @@ public class TelaCadastro extends javax.swing.JPanel {
     public TelaCadastro() throws InfraException {
         initComponents();
 
-        usuarioManager = new UsuarioManager();
+        usuarioManager = UsuarioManager.getInstance();
 
 
         ButtonGroup checkBoxGroup = new ButtonGroup();
@@ -146,6 +147,7 @@ public class TelaCadastro extends javax.swing.JPanel {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) throws LoginInvalidException, PasswordInvalidException {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:
+        UserFactoryImpl usuarioFactory = new UserFactoryImpl();
         String username = txtUser.getText();
         String password = new String(txtPass.getPassword());
         String nomeCompleto = txtNomeCompleto.getText();
@@ -156,11 +158,9 @@ public class TelaCadastro extends javax.swing.JPanel {
         boolean aluno = jCheckBox1.isSelected();
         boolean professor = jCheckBox2.isSelected();
         //boolean administrador = jCheckBox3.isSelected();
-        Usuario user = new Usuario(username, password, nomeCompleto, dataNascimento,
-                telefone, endereco, aluno, professor);
         if (aluno) {
             try {
-                usuarioManager.adicionarUsuario(user);
+                usuarioManager.adicionarUsuario(username, password, nomeCompleto, dataNascimento, telefone, endereco, aluno, professor);
                 JOptionPane.showMessageDialog(this, "Cadastro bem-sucedido!");
 
                 // Fecha a janela de cadastro
@@ -177,7 +177,7 @@ public class TelaCadastro extends javax.swing.JPanel {
 
             if (adminPassword.equals("adm2023")) {
                 try {
-                    usuarioManager.adicionarUsuario(user);
+                    usuarioManager.adicionarUsuario(username, password, nomeCompleto, dataNascimento, telefone, endereco, aluno, professor);
                     JOptionPane.showMessageDialog(this, "Cadastro bem-sucedido!");
 
                     // Fecha a janela de cadastro

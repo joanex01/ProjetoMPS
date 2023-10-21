@@ -1,6 +1,7 @@
 package business.control;
 
 import business.model.Usuario;
+import factory.UserFactoryImpl;
 import infra.InfraException;
 import infra.InfraException;
 import infra.UserFile;
@@ -15,25 +16,23 @@ import java.util.List;
 public class UsuarioManager {
     private List<Usuario> usuarios;
     UserFile userFile;
+    UserFactoryImpl userFactory = new UserFactoryImpl();
+    private static UsuarioManager instance;
     //private final String FILENAME = "src/database/usuarios.bin";
 
     public UsuarioManager() throws InfraException {
         userFile = new UserFile();
         usuarios = userFile.carregarUsuarios();
-        /*usuarios = new ArrayList<>();
-        File file = new File(FILENAME);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            usuarios = carregarUser.carregarUsuarios(FILENAME, usuarios); // Carregue os usuários do arquivo, se o arquivo existir
-        }*/
     }
 
-    public void adicionarUsuario(Usuario usuario) throws LoginInvalidException, PasswordInvalidException {
+    public static UsuarioManager getInstance() throws InfraException {
+        if (instance == null) {
+            instance = new UsuarioManager();
+        }
+        return instance;
+    }
+    public void adicionarUsuario(String username, String password, String nomeCompleto, String dataNascimento, String telefone, String endereco, Boolean aluno, Boolean professor) throws LoginInvalidException, PasswordInvalidException {
+        Usuario usuario = userFactory.createUser(username, password, nomeCompleto, dataNascimento, telefone, endereco, aluno, professor);
         UserValidador.validateName(usuario.getUsername());
         UserValidador.validatePassword(usuario.getPassword());
         usuarios.add(usuario);

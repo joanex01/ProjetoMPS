@@ -14,7 +14,7 @@ public class TelaCadastroEx extends javax.swing.JPanel {
     public TelaCadastroEx() throws InfraException {
         initComponents();
 
-        exercicioManager = new ExercicioManager();
+        exercicioManager = ExercicioManager.getInstance();
     }
 
     // @SuppressWarnings("unchecked")
@@ -97,8 +97,7 @@ public class TelaCadastroEx extends javax.swing.JPanel {
         String nome = txtName.getText();
         String descricao = txtDescription.getText();
 
-        Exercicio exercicio = new Exercicio(nome, descricao);
-        exercicioManager.adicionarExercicio(exercicio);
+        exercicioManager.adicionarExercicio(nome, descricao);
         JOptionPane.showMessageDialog(this, "Cadastro bem-sucedido!");
         SwingUtilities.getWindowAncestor(this).dispose();
 

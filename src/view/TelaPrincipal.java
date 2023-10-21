@@ -129,7 +129,7 @@ public class TelaPrincipal extends javax.swing.JPanel {
     // Aqui você pode prosseguir com o processo de autenticação
     // Vamos verificar se o usuário existe e se a senha está correta
 
-    UsuarioManager usuarioManager = new UsuarioManager();
+    UsuarioManager usuarioManager = UsuarioManager.getInstance();
 
 
     Usuario usuario = usuarioManager.buscarUsuario(username);
