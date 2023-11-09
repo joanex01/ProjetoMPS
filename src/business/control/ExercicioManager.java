@@ -11,22 +11,34 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+// ExercicioManager
 public class ExercicioManager {
     private List<Exercicio> exercicios;
     private ExerciseFile exerciseFile;
     private static ExercicioManager instance;
     private static ExerciseFactoryImpl exerciseFactory = new ExerciseFactoryImpl();
 
-    public ExercicioManager() throws InfraException {
-        exerciseFile = new ExerciseFile();
-        exercicios = exerciseFile.loadExercises();
+    private ExercicioManager() throws InfraException {
+        try {
+            exerciseFile = new ExerciseFile();
+            exercicios = exerciseFile.loadExercises();
+        } catch (InfraException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao inicializar ExercicioManager", e);
+        }
     }
-    public static ExercicioManager getInstance() throws InfraException {
+
+    public static ExercicioManager getInstance() {
         if (instance == null) {
-            instance = new ExercicioManager();
+            try {
+                instance = new ExercicioManager();
+            } catch (InfraException e) {
+                throw new RuntimeException("Erro ao criar a instância de ExercicioManager", e);
+            }
         }
         return instance;
     }
+
 
     public void adicionarExercicio(String name, String description) {
         Exercicio exercicio = exerciseFactory.createExercise(name, description);

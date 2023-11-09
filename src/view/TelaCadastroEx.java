@@ -1,6 +1,7 @@
 package view;
 
 import business.control.ExercicioManager;
+import business.control.ExercicioManagerFacade;
 import business.model.Exercicio;
 import infra.InfraException;
 
@@ -9,12 +10,12 @@ import java.awt.*;
 
 public class TelaCadastroEx extends javax.swing.JPanel {
 
-    private ExercicioManager exercicioManager;
+    private ExercicioManagerFacade exercicioManager;
 
     public TelaCadastroEx() throws InfraException {
         initComponents();
 
-        exercicioManager = ExercicioManager.getInstance();
+        exercicioManager = ExercicioManagerFacade.getInstance();
     }
 
     // @SuppressWarnings("unchecked")

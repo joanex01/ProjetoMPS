@@ -1,6 +1,5 @@
 package business.control;
 
-import business.model.User;
 import business.model.Usuario;
 
 import java.io.FileWriter;
