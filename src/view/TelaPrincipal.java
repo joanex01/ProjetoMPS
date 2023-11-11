@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 
 import business.control.UsuarioManager;
+import business.control.UsuarioManagerFacade;
 import business.model.Usuario;
 import infra.InfraException;
 
@@ -129,7 +130,7 @@ public class TelaPrincipal extends javax.swing.JPanel {
     // Aqui você pode prosseguir com o processo de autenticação
     // Vamos verificar se o usuário existe e se a senha está correta
 
-    UsuarioManager usuarioManager = UsuarioManager.getInstance();
+    UsuarioManagerFacade usuarioManager = UsuarioManagerFacade.getInstance();
 
 
     Usuario usuario = usuarioManager.buscarUsuario(username);

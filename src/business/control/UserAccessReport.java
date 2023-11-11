@@ -23,7 +23,7 @@ public abstract class UserAccessReport {
 
         generateHeader(bufferedWriter);
         
-        UsuarioManager usuarioManager = new UsuarioManager();
+        UsuarioManagerFacade usuarioManager = new UsuarioManagerFacade();
         List<Usuario> usuarios = usuarioManager.getUsuarios();
 
         for (Usuario usuario : usuarios){

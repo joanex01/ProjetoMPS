@@ -2,8 +2,9 @@ package business.control;
 
 import business.model.Exercicio;
 import factory.ExerciseFactoryImpl;
-import infra.ExerciseFile;
-import infra.InfraException;
+import infra.*;
+import util.LoginInvalidException;
+import util.PasswordInvalidException;
 
 import java.util.List;
 
@@ -22,15 +23,24 @@ public class ExercicioManagerFacade {
         return instance;
     }
 
-    public void adicionarExercicio(String name, String description) {
-        exercicioManager.adicionarExercicio(name, description);
+    public void adicionarExercicio(String name, String description) throws LoginInvalidException, PasswordInvalidException {
+        Command adicionarExercicioCommand = new AdicionarExercicioCommand(exercicioManager, name, description);
+        adicionarExercicioCommand.execute();
     }
 
     public List<Exercicio> getExercicios() {
-        return exercicioManager.getExercicios();
+        GetExerciciosCommand getExerciciosCommand = new GetExerciciosCommand(exercicioManager);
+        getExerciciosCommand.execute();
+        return getExerciciosCommand.getExercicios();
     }
 
-    public Exercicio buscarExercicio(String name) {
-        return exercicioManager.buscarExercicio(name);
+    public Exercicio buscarExercicio(String name) throws LoginInvalidException, PasswordInvalidException {
+        BuscarExercicioCommand buscarExercicioCommand = new BuscarExercicioCommand(exercicioManager, name);
+        buscarExercicioCommand.execute();
+        return buscarExercicioCommand.getExercicioEncontrado();
+    }
+
+    public void desfazerAtualizacaoUsuarios() {
+        exercicioManager.desfazerAtualizacao();
     }
 }

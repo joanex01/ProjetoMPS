@@ -6,6 +6,7 @@ package view;
 
 import business.model.Exercicio;
 import business.model.Usuario;
+import infra.ExerciseFile;
 import infra.InfraException;
 import infra.ListaExercicioAdapter;
 
@@ -20,7 +21,8 @@ public class TelaAluno extends javax.swing.JPanel {
      List<Exercicio> exercicios;
 
     public TelaAluno(Usuario aluno) throws InfraException {
-        ListaExercicioAdapter adapter = new ListaExercicioAdapter();
+        ExerciseFile exerciseFile = new ExerciseFile();
+        ListaExercicioAdapter adapter = new ListaExercicioAdapter(exerciseFile);
         try {
             exercicios = adapter.obterListaExercicio();
         } catch (InfraException e) {

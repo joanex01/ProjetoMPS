@@ -1,6 +1,9 @@
 package business.model;
 
+import infra.UsuarioMemento;
+
 import java.io.Serializable;
+import java.util.List;
 
 public class Usuario implements Serializable {
 
@@ -93,6 +96,15 @@ public class Usuario implements Serializable {
 
     public void setProfessor(boolean professor) {
         this.professor = professor;
+    }
+
+    public UsuarioMemento salvarEstado(List<Usuario> usuarios) {
+        return new UsuarioMemento(usuarios);
+    }
+
+    public List<Usuario> restaurarEstado(UsuarioMemento memento) {
+        List<Usuario> estadoSalvo = memento.getEstadoSalvo();
+        return estadoSalvo;
     }
 
 //    public boolean isAdministrador() {

@@ -5,6 +5,7 @@ import factory.UserFactoryImpl;
 import infra.InfraException;
 import infra.InfraException;
 import infra.UserFile;
+import infra.UsuarioMemento;
 import util.LoginInvalidException;
 import util.PasswordInvalidException;
 import util.UserValidador;
@@ -12,8 +13,10 @@ import util.UserValidador;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class UsuarioManager {
+    private Stack<UsuarioMemento> historico = new Stack<>();
     private List<Usuario> usuarios;
     UserFile userFile;
     UserFactoryImpl userFactory = new UserFactoryImpl();
@@ -33,10 +36,8 @@ public class UsuarioManager {
     }
     public void adicionarUsuario(String username, String password, String nomeCompleto, String dataNascimento, String telefone, String endereco, Boolean aluno, Boolean professor) throws LoginInvalidException, PasswordInvalidException {
         Usuario usuario = userFactory.createUser(username, password, nomeCompleto, dataNascimento, telefone, endereco, aluno, professor);
-        UserValidador.validateName(usuario.getUsername());
-        UserValidador.validatePassword(usuario.getPassword());
-        usuarios.add(usuario);
-        userFile.saveUsers(usuarios); // Após adicionar um novo usuário, salve a lista atualizada no arquivo
+        salvarEstado();
+        userFactory.salvarUsuarios(usuarios, usuario); // Após adicionar um novo usuário, salve a lista atualizada no arquivo
     }
 
     public List<Usuario> getUsuarios() {
@@ -50,5 +51,22 @@ public class UsuarioManager {
             }
         }
         return null; // Retorna null se o usuário não for encontrado
+    }
+    public void removerUsuario(Usuario usuario) {
+        // Remova o usuário da lista
+        usuarios.remove(usuario);
+        // Salve o estado atual antes da atualização
+        salvarEstado();
+    }
+    public void desfazerAtualizacao() {
+        if (!historico.isEmpty()) {
+            UsuarioMemento memento = historico.pop();
+            List<Usuario> usuariosRestaurados = memento.getEstadoSalvo();
+            // Substitua a lista de usuários atual pelos dados restaurados
+            this.usuarios = new ArrayList<>(usuariosRestaurados);
+        }
+    }
+    private void salvarEstado() {
+        historico.push(new UsuarioMemento(new ArrayList<>(usuarios)));
     }
 }

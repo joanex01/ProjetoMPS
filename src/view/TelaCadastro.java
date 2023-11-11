@@ -1,6 +1,7 @@
 package view;
 
 import business.control.UsuarioManager;
+import business.control.UsuarioManagerFacade;
 import business.model.Usuario;
 import factory.UserFactoryImpl;
 import infra.InfraException;
@@ -14,12 +15,12 @@ import java.awt.*;
 
 public class TelaCadastro extends javax.swing.JPanel {
 
-    private UsuarioManager usuarioManager;
+    private UsuarioManagerFacade usuarioManager;
 
     public TelaCadastro() throws InfraException {
         initComponents();
 
-        usuarioManager = UsuarioManager.getInstance();
+        usuarioManager = UsuarioManagerFacade.getInstance();
 
 
         ButtonGroup checkBoxGroup = new ButtonGroup();

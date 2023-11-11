@@ -4,6 +4,8 @@ import business.control.ExercicioManager;
 import business.control.ExercicioManagerFacade;
 import business.model.Exercicio;
 import infra.InfraException;
+import util.LoginInvalidException;
+import util.PasswordInvalidException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +53,13 @@ public class TelaCadastroEx extends javax.swing.JPanel {
         btnCadastrarEx.setText("Cadastrar exercício");
         btnCadastrarEx.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarExActionPerformed(evt);
+                try {
+                    btnCadastrarExActionPerformed(evt);
+                } catch (LoginInvalidException e) {
+                    throw new RuntimeException(e);
+                } catch (PasswordInvalidException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -93,7 +101,7 @@ public class TelaCadastroEx extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void btnCadastrarExActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarExActionPerformed
+    private void btnCadastrarExActionPerformed(java.awt.event.ActionEvent evt) throws LoginInvalidException, PasswordInvalidException {//GEN-FIRST:event_btnCadastrarExActionPerformed
         // TODO add your handling code here:
         String nome = txtName.getText();
         String descricao = txtDescription.getText();

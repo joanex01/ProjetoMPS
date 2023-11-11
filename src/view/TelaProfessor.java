@@ -9,6 +9,7 @@ import business.model.Exercicio;
 import business.model.Usuario;
 import infra.ExerciseFile;
 import infra.InfraException;
+import infra.ListaExercicioAdapter;
 
 
 import javax.swing.*;
@@ -123,8 +124,15 @@ public class TelaProfessor extends javax.swing.JPanel {
     private void btnListaExercicioActionPerformed(java.awt.event.ActionEvent evt) throws InfraException {
         TelaListaEx telaListaEx = new TelaListaEx();
 
+        List<Exercicio> exercicios;
         ExerciseFile exerciseFile = new ExerciseFile();
-        List<Exercicio> exercicios = exerciseFile.loadExercises();
+        ListaExercicioAdapter adapter = new ListaExercicioAdapter(exerciseFile);
+        try {
+            exercicios = adapter.obterListaExercicio();
+        } catch (InfraException e) {
+            throw new RuntimeException(e);
+        }
+
 
         // Crie um modelo de lista a partir do ArrayList
         DefaultListModel<String> listModel = new DefaultListModel<>();
